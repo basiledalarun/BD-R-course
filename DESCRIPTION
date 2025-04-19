@@ -1,13 +1,18 @@
 Package: imagefilterproject
-Title: Image filtering to grey, red, green or blue colors
+Title: Filter your images to a grey, red, green or blue scale
 Version: 0.0.0.9000
-Authors@R: 
-    person("basile dalarun, role = c("aut", "cre"))
-Description: With this package you can upload your JPEG image and apply different color filters to it. You can choose to have it in shades of grey, red, green or blue.
-License: MIT
+Authors@R: person(given = "Basile", family = "Dalarun", 
+    email = "basile.dalarun@ki.se", role = c("aut", "cre"))
+Description: With this package you have the functions to upload some JPEG images from your
+    working directory, and apply different color filters to it. You can choose to have it
+    in shades of grey, red, green or blue.
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 LazyData: true
 Imports: magick
+
+
+
 

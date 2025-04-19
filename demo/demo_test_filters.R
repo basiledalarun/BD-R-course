@@ -1,27 +1,22 @@
-# Load required package
-library(magick)
+# demo_test_filters.R
 
-# Load the image from your working directory
-my_image <- image_read("~/Library/CloudStorage/OneDrive-KarolinskaInstitutet/Desktop/image.jpg")
+#load package
+library(imagefilterproject)
 
-print(my_image)
+# Load an image
+my_image <- image_read("path_to_your_image.jpg")
 
 
 # Convert image to raw RGB array (channels x width x height)
 img_data <- image_data(my_image, channels = "rgb")
 
-# Grayscale conversion function
-convert_to_grey <- function(rgb) {
-  r <- as.numeric(rgb[1])
-  g <- as.numeric(rgb[2])
-  b <- as.numeric(rgb[3])
-  grey <- 0.299 * r + 0.587 * g + 0.114 * b
-  grey_raw <- as.raw(round(grey))
-  return(rep(grey_raw, 3))
-}
+#THEN :
+##### I you are interested in a greyscale : ######
+convert_to_grey(c(255, 0, 0))
 
 # Get dimensions
-dims <- dim(img_data)  # 3 x width x height
+dims <- dim(img_data)
+
 
 # Apply grayscale to each pixel
 for (x in 1:dims[2]) {
@@ -35,22 +30,17 @@ for (x in 1:dims[2]) {
 }
 
 # Reconstruct the image from modified pixel data
-grey_image <- image_read(img_data)
+grey_image <- magick::image_read(img_data)
 
-# Display the grayscale image
+# Display the result
 print(grey_image)
 
 
-#Red filter function
-
-convert_to_red <- function(rgb) {
-  r <- as.numeric(rgb[1])
-  r_raw <- as.raw(round(r))
-  return(c(r_raw, as.raw(0), as.raw(0)))  # Keep red, zero out green and blue
-}
+##### I you are interested in a red filter : ######
+convert_to_red(c(255,0,0))
 
 # Get dimensions
-dims <- dim(img_data)  # 3 x width x height
+dims <- dim(img_data)
 
 # Apply red filter to each pixel
 for (x in 1:dims[2]) {
@@ -64,23 +54,17 @@ for (x in 1:dims[2]) {
 }
 
 # Reconstruct the image from modified pixel data
-red_image <- image_read(img_data)
+red_image <- magick::image_read(img_data)
 
 # Display the red-filtered image
 print(red_image)
 
-####################
-#Lets do green # Green filter function ###
 
-
-convert_to_green <- function(rgb) {
-  g <- as.numeric(rgb[2])
-  g_raw <- as.raw(round(g))
-  return(c(as.raw(0), g_raw, as.raw(0)))  # Keep green, zero out red and blue
-}
+##### I you are interested in a green filter : ######
+convert_to_green(c(255, 0, 0))
 
 # Get dimensions
-dims <- dim(img_data)  # 3 x width x height
+dims <- dim(img_data)
 
 # Apply green filter to each pixel
 for (x in 1:dims[2]) {
@@ -94,21 +78,15 @@ for (x in 1:dims[2]) {
 }
 
 # Reconstruct the image from modified pixel data
-green_image <- image_read(img_data)
+green_image <- magick::image_read(img_data)
 
-# Display the green-filtered image
+#' Display the green-filtered image
 print(green_image)
 
 
-####################
-#Lets do BLUE filter function
+##### I you are interested in a blue filter : ######
+convert_to_blue(c(255, 0, 0))
 
-# Blue filter function
-convert_to_blue <- function(rgb) {
-  b <- as.numeric(rgb[3])
-  b_raw <- as.raw(round(b))
-  return(c(as.raw(0), as.raw(0), b_raw))  # Keep blue, zero out red and green
-}
 
 # Get dimensions
 dims <- dim(img_data)  # 3 x width x height
@@ -125,11 +103,7 @@ for (x in 1:dims[2]) {
 }
 
 # Reconstruct the image from modified pixel data
-blue_image <- image_read(img_data)
+blue_image <- magick::image_read(img_data)
 
 # Display the blue-filtered image
 print(blue_image)
-
-
-
-
