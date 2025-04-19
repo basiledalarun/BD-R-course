@@ -1,0 +1,174 @@
+---
+title: "getting-started"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{getting-started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library("imagefilterproject")
+```
+
+#install and load package magick
+```
+install.packages("magick")
+library("magick")
+```
+
+#load package imagefilterproject
+
+```
+library(imagefilterproject)
+```
+
+#Load an image
+```
+my_image <- image_read("path_to_your_image.jpg")
+```
+
+#Convert image to raw RGB array (channels x width x height)
+```
+img_data <- image_data(my_image, channels = "rgb")
+```
+
+# THEN :
+# If you are interested in a greyscale : 
+```
+convert_to_grey(c(255, 0, 0))
+```
+
+#Get dimensions
+```
+dims <- dim(img_data)
+```
+
+#Apply grayscale to each pixel`
+```
+for (x in 1:dims[2]) {
+  for (y in 1:dims[3]) {
+    rgb_pixel <- c(img_data[1, x, y], img_data[2, x, y], img_data[3, x, y])
+    grey_pixel <- convert_to_grey(rgb_pixel)
+    img_data[1, x, y] <- grey_pixel[1]
+    img_data[2, x, y] <- grey_pixel[2]
+    img_data[3, x, y] <- grey_pixel[3]
+  }
+}
+```
+
+#Reconstruct the image from modified pixel data
+```
+grey_image <- magick::image_read(img_data)
+```
+
+#Display the result
+```
+print(grey_image)
+```
+
+# If you are interested in a red filter : 
+```
+convert_to_red(c(255,0,0))
+```
+#Get dimensions`
+```
+dims <- dim(img_data)
+```
+
+#Apply red filter to each pixel
+```
+for (x in 1:dims[2]) {
+  for (y in 1:dims[3]) {
+    rgb_pixel <- c(img_data[1, x, y], img_data[2, x, y], img_data[3, x, y])
+    red_pixel <- convert_to_red(rgb_pixel)
+    img_data[1, x, y] <- red_pixel[1]  # Red
+    img_data[2, x, y] <- red_pixel[2]  # Green = 0
+    img_data[3, x, y] <- red_pixel[3]  # Blue = 0
+  }
+}
+```
+#Reconstruct the image from modified pixel data`
+```
+red_image <- magick::image_read(img_data)
+```
+
+#Display the red-filtered image
+```
+print(red_image)
+```
+
+# If you are interested in a green filter :
+```
+convert_to_green(c(255, 0, 0))
+```
+
+#Get dimensions
+```
+dims <- dim(img_data)`
+```
+
+#Apply green filter to each pixel
+```
+for (x in 1:dims[2]) {
+  for (y in 1:dims[3]) {
+    rgb_pixel <- c(img_data[1, x, y], img_data[2, x, y], img_data[3, x, y])
+    green_pixel <- convert_to_green(rgb_pixel)
+    img_data[1, x, y] <- green_pixel[1]  # Red = 0
+    img_data[2, x, y] <- green_pixel[2]  # Green
+    img_data[3, x, y] <- green_pixel[3]  # Blue = 0
+  }
+}
+```
+
+#Reconstruct the image from modified pixel data
+```
+green_image <- magick::image_read(img_data)
+```
+
+#Display the green-filtered image
+```
+print(green_image)
+```
+
+# If you are interested in a blue filter : 
+```
+convert_to_blue(c(255, 0, 0))
+```
+
+#Get dimensions
+```
+dims <- dim(img_data)  # 3 x width x height
+```
+
+#Apply blue filter to each pixel
+```
+for (x in 1:dims[2]) {
+  for (y in 1:dims[3]) {
+    rgb_pixel <- c(img_data[1, x, y], img_data[2, x, y], img_data[3, x, y])
+    blue_pixel <- convert_to_blue(rgb_pixel)
+    img_data[1, x, y] <- blue_pixel[1]  # Red = 0
+    img_data[2, x, y] <- blue_pixel[2]  # Green = 0
+    img_data[3, x, y] <- blue_pixel[3]  # Blue
+  }
+}
+```
+
+#Reconstruct the image from modified pixel data
+```
+blue_image <- magick::image_read(img_data)
+```
+
+#Display the blue-filtered image
+```
+print(blue_image)
+```
+
+
